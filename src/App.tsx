@@ -1,12 +1,8 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
+import Router from "./routes/router";
 
 function App() {
-  return (
-    <>
-      <Button>Click me</Button>
-    </>
-  );
+  return <Router />;
 }
 
 export default App;
