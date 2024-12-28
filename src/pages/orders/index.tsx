@@ -1,44 +1,27 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TOrder } from "@/types/order";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import OrderService from "@/services/order";
 
 type Props = {};
 
 const Orders = (props: Props) => {
-  const orders: TOrder[] = [
-    {
-      _id: "1",
-      userId: "1",
-      items: [
-        {
-          item: {
-            _id: "1",
-            title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-            price: 109.95,
-            description: "A backpack which is fits 15 laptops",
-            category: "men's clothing",
-            image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-            rating: {
-              rate: 3.9,
-              count: 120,
-            },
-          },
-          quantity: 1,
-        },
-      ],
-      discount: {
-        code: "123456",
-        description: "10% off",
-        discount: 10,
-        nthOrder: 1,
-        isActive: true,
-      },
-      totalBeforeDiscount: 0,
-      total: 0,
-      createdAt: new Date(),
-    },
-  ];
+  const [orders, setOrders] = useState<TOrder[]>([]);
+
+  const getOrders = async () => {
+    try {
+      const orders = await OrderService.getOrders();
+      setOrders(orders);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Order History</h1>
@@ -54,7 +37,7 @@ const Orders = (props: Props) => {
             <Card key={order._id}>
               <CardHeader>
                 <CardTitle>
-                  Order #{order.userId} -{" "}
+                  Order #{order._id} -{" "}
                   {dayjs(order.createdAt).format("DD/MM/YYYY")}
                 </CardTitle>
               </CardHeader>
@@ -74,11 +57,25 @@ const Orders = (props: Props) => {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4 pt-4 border-t flex justify-between items-center">
-                  <span className="text-gray-600">Total</span>
-                  <span className="text-xl font-bold text-blue-600">
-                    ${order.total.toFixed(2)}
-                  </span>
+                <div className="mt-4 pt-4 border-t space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Subtotal</span>
+                    <span className="text-gray-800">
+                      ${order.totalBeforeDiscount.toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Discount</span>
+                    <span className="text-green-600">
+                      -${(order.totalBeforeDiscount - order.total).toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Total</span>
+                    <span className="text-xl font-bold text-blue-600">
+                      ${order.total.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>

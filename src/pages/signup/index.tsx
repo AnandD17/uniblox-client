@@ -2,17 +2,31 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthService from "@/services/auth";
+import { toast } from "@/hooks/use-toast";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log({ email, password, name });
+    try {
+      AuthService.signup(name, email, password);
+      toast({
+        title: "Signup successful",
+        description: "You can now login to your account",
+      });
+      navigate("/login");
+    } catch (error) {
+      toast({
+        title: "Signup failed",
+        description: "Please try again",
+      });
+    }
   };
 
   return (

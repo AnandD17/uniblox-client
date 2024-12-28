@@ -4,7 +4,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import { Button } from "../ui/button";
-
+import CartService from "@/services/cart";
+import { toast } from "@/hooks/use-toast";
 const ProductCard = ({
   _id,
   title,
@@ -14,8 +15,16 @@ const ProductCard = ({
   image,
   rating,
 }: TProduct) => {
-  const handleAddToCart = () => {
-    console.log("add to cart");
+  const handleAddToCart = async () => {
+    try {
+      await CartService.addToCart(_id);
+      toast({
+        title: "Product added to cart",
+        description: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <Card className="w-full max-w-sm overflow-hidden">
@@ -46,7 +55,9 @@ const ProductCard = ({
         <p className="text-sm text-gray-600 line-clamp-3">{description}</p>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full">Add to Cart</Button>
+        <Button onClick={handleAddToCart} className="w-full">
+          Add to Cart
+        </Button>
       </CardFooter>
     </Card>
   );
