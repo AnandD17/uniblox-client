@@ -10,7 +10,7 @@ export class ApiError extends Error {
 
 // Create the Axios instance with default configuration
 const api: AxiosInstance = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: "https://uniblox-server.onrender.com/api",
   timeout: 10000, // 10 seconds
   headers: {
     "Content-Type": "application/json",
