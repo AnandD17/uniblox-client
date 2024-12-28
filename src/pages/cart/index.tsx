@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -14,9 +14,7 @@ import { TCart } from "@/types/cart";
 import OrderService from "@/services/order";
 import { toast } from "@/hooks/use-toast";
 
-type Props = {};
-
-const Cart = (props: Props) => {
+const Cart = () => {
   const [cartData, setCartData] = useState<TCart | null>(null);
 
   const getCartItems = async () => {

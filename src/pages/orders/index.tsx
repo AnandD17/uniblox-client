@@ -1,12 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TOrder } from "@/types/order";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import OrderService from "@/services/order";
 
-type Props = {};
-
-const Orders = (props: Props) => {
+const Orders = () => {
   const [orders, setOrders] = useState<TOrder[]>([]);
 
   const getOrders = async () => {

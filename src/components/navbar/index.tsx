@@ -1,9 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-type Props = {};
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   return (
     <div className="flex justify-between items-center p-4 bg-gray-100">
       <div className="flex items-center">

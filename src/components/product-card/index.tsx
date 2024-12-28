@@ -1,5 +1,4 @@
 import { TProduct } from "@/types/product";
-import React from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";

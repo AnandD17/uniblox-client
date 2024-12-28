@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TProduct } from "@/types/product";
 import ProductCard from "@/components/product-card";
 import ProductsService from "@/services/products";

@@ -7,7 +7,6 @@ const Login = lazy(() => import("@/pages/login"));
 const Home = lazy(() => import("@/pages/home"));
 const Cart = lazy(() => import("@/pages/cart"));
 const Orders = lazy(() => import("@/pages/orders"));
-type Props = {};
 
 const RenderProtected = ({ children }: { children: React.ReactNode }) => {
   const user = localStorage.getItem("user");
@@ -23,7 +22,7 @@ const RenderProtected = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const Router = (props: Props) => {
+const Router = () => {
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>
